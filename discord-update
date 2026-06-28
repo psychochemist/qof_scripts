@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Define where to save the temporary download
+DEB_FILE="/tmp/discord-latest.deb"
+DOWNLOAD_URL="https://discord.com/api/download?platform=linux&format=deb"
+
+echo "Downloading the latest version of Discord..."
+# wget downloads the file quietly (-q) and shows a progress bar (--show-progress)
+wget -q --show-progress -O "$DEB_FILE" "$DOWNLOAD_URL"
+
+echo "Installing the update..."
+# We use apt instead of dpkg because apt automatically handles any missing dependencies
+sudo apt install "$DEB_FILE" -y
+
+echo "Cleaning up temporary files..."
+rm "$DEB_FILE"
+
+echo "Discord has been updated successfully! You may need to restart Discord if it is currently open."
